@@ -88,10 +88,13 @@ body {
 
 /* Table Styling */
 table {
-    width: 100%;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
     border-collapse: collapse;
     background: white;
 }
+
 
 th, td {
     padding: 10px;

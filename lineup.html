@@ -14,7 +14,7 @@
             <ul>
                 <li><a href="index.html" onclick="showHome()">Home</a></li>
                 <li class="dropdown">
-                    <a href="lineup.html">Lineup ▼</a>
+                    <a href="#">Lineup ▼</a>
                     <ul class="dropdown-content">
                         <li><a href="#" onclick="filterLineup('all')">All</a></li>
                         <li>
@@ -45,25 +45,7 @@
         </nav>
 
         <main class="content">
-            <section id="home">
-                <h2 style="text-align: center;">Welcome to the Good Tree Church Music Team!</h2>
-                <h3 style="margin-left: 5%; color: #00692e;">Latest Lineup</h3>
-                <table id="latestLineupTable">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Song Lineup</th>
-                            <th>Description</th>
-                            <th>Youtube Link</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Latest data will be inserted here -->
-                    </tbody>
-                </table>
-            </section>
-            
-            <section id="lineup" style="display:none;">
+            <section id="lineup">
                 <h2>Lineup</h2>
                 <table id="lineupTable">
                     <thead>
@@ -96,7 +78,6 @@
                 const data = await response.json();
                 allData = data.values;
                 displayLineup(allData);
-                displayLatestLineup(allData);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
@@ -110,6 +91,7 @@
                 return;
             }
 
+            // Remove header row and sort by date
             const sortedRows = rows.slice(1).sort((a, b) => new Date(a[0]) - new Date(b[0]));
 
             sortedRows.forEach(row => {
@@ -124,65 +106,26 @@
             });
         }
 
-        function displayLatestLineup(rows) {
-            const today = new Date();
-            // Sort the rows by date in ascending order
-            const sortedRows = rows.slice(1).sort((a, b) => new Date(a[0]) - new Date(b[0]));
-
-            // Find the row closest to or after today's date
-            const latestRowIndex = sortedRows.findIndex(row => new Date(row[0]) >= today);
-
-            if (latestRowIndex !== -1) {
-                const tableBody = document.querySelector("#latestLineupTable tbody");
-                tableBody.innerHTML = "";  // Clear any existing rows
-
-                // Get the next 5 rows after the latest row
-                const rowsToShow = sortedRows.slice(latestRowIndex, latestRowIndex + 6);
-
-                rowsToShow.forEach(row => {
-                    const [date, songLineup, description, youtubeLink] = row;
-                    const newRow = `<tr>
-                        <td>${date || ""}</td>
-                        <td>${songLineup || ""}</td>
-                        <td>${description || ""}</td>
-                        <td>${youtubeLink ? `<a href='${youtubeLink}' target='_blank'>Watch/Listen</a>` : ""}</td>
-                    </tr>`;
-                    tableBody.innerHTML += newRow;
-                });
-            } else {
-                const tableBody = document.querySelector("#latestLineupTable tbody");
-                tableBody.innerHTML = "<tr><td colspan='4'>No upcoming lineup found</td></tr>";
-            }
-        }
-
-        function showHome() {
-            document.getElementById('home').style.display = 'block';
-            document.getElementById('lineup').style.display = 'none';
-        }
-
-        function showSection(sectionId) {
-            document.getElementById('home').style.display = 'none';
-            document.getElementById('lineup').style.display = 'block';
-        }
-
         function filterByMonth(month) {
-            const filteredData = allData.filter((row, index) => {
-                if (index === 0) return false; // Skip header
+            const sortedRows = allData.slice(1).sort((a, b) => new Date(a[0]) - new Date(b[0])); // Sort the data by date
+
+            // Filter the rows by the selected month
+            const filteredRows = sortedRows.filter(row => {
                 const date = new Date(row[0]);
-                return date.getMonth() + 1 === month; // Months are 0-based in JS
+                return date.getMonth() + 1 === month; // Months are 0-based in JavaScript
             });
 
+            // Display all the rows for the selected month
             const tableBody = document.querySelector("#lineupTable tbody");
             tableBody.innerHTML = "";
 
-            if (filteredData.length === 0) {
+            if (filteredRows.length === 0) {
                 tableBody.innerHTML = "<tr><td colspan='4'>No data available for this month</td></tr>";
                 return;
             }
 
-            filteredData.sort((a, b) => new Date(a[0]) - new Date(b[0]));
-
-            filteredData.forEach(row => {
+            // Add the filtered rows for the selected month
+            filteredRows.forEach(row => {
                 const [date, songLineup, description, youtubeLink] = row;
                 const newRow = `<tr>
                     <td>${date || ""}</td>
@@ -198,6 +141,10 @@
             if (type === "all") {
                 displayLineup(allData);
             }
+        }
+
+        function toggleSidebar() {
+            document.querySelector(".sidebar").classList.toggle("open");
         }
 
         document.addEventListener("DOMContentLoaded", fetchSheetData);
