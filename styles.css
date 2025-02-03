@@ -1,24 +1,31 @@
+/* General Styles */
 body {
     font-family: Avenir, sans-serif;
-    background-color: white;
     margin: 0;
-    display: flex;
+    padding: 0;
+    background-color: #f5f5f5;
 }
 
 .container {
     display: flex;
-    width: 100%;
 }
 
+/* Sidebar */
 .sidebar {
     width: 250px;
     background-color: #00692e;
     color: white;
     padding: 20px;
     height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    transition: width 0.3s ease-in-out;
 }
 
 .sidebar h2 {
+    font-size: 20px;
     text-align: center;
 }
 
@@ -28,27 +35,86 @@ body {
 }
 
 .sidebar ul li {
-    margin: 10px 0;
+    padding: 10px;
 }
 
 .sidebar ul li a {
     color: white;
     text-decoration: none;
+    display: block;
 }
 
+.sidebar ul li:hover {
+    background-color: #004d21;
+}
+
+.dropdown-content {
+    display: none;
+    list-style: none;
+    padding-left: 20px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Responsive Sidebar */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .sidebar.open {
+        width: 250px;
+        padding: 20px;
+    }
+}
+
+/* Sidebar Toggle Button */
+.toggle-btn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: #00692e;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .toggle-btn {
+        display: block;
+    }
+}
+
+/* Content Section */
 .content {
-    flex-grow: 1;
+    margin-left: 270px;
     padding: 20px;
+    flex-grow: 1;
+    width: 100%;
 }
 
+@media screen and (max-width: 768px) {
+    .content {
+        margin-left: 0;
+    }
+}
+
+/* Table Styling */
 table {
     width: 100%;
     border-collapse: collapse;
+    background: white;
 }
 
 th, td {
-    border: 1px solid #00692e;
     padding: 10px;
+    border: 1px solid #ccc;
     text-align: left;
 }
 
@@ -57,30 +123,21 @@ th {
     color: white;
 }
 
-.dropdown {
-    position: relative;
+tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
 
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #00692e;
-    min-width: 200px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 10px 0;
-    list-style: none;
-}
-
-.dropdown-content li {
-    padding: 8px 16px;
-}
-
-.dropdown-content li a {
+a {
     color: #00692e;
     text-decoration: none;
-    display: block;
+    font-weight: bold;
 }
 
-.dropdown:hover .dropdown-content {
-    display: block;
+a:hover {
+    text-decoration: underline;
+}
+
+h2{
+    color: #00692e;
+    text-align: center;
 }

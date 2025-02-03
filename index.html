@@ -8,14 +8,32 @@
 </head>
 <body>
     <div class="container">
+        <button class="toggle-btn" onclick="toggleSidebar()">☰ Menu</button>
+
         <nav class="sidebar">
-            <h2>Good Tree Music Team</h2>
+            <h1>Good Tree Music Team</h1>
             <ul>
                 <li class="dropdown">
-                    <a href="#">Lineup</a>
+                    <a href="#">Lineup ▼</a>
                     <ul class="dropdown-content">
                         <li><a href="#" onclick="filterLineup('all')">All</a></li>
-                        <li><a href="#" onclick="filterLineup('month')">By Month</a></li>
+                        <li>
+                            <a href="#">By Month ▼</a>
+                            <ul class="dropdown-content">
+                                <li><a href="#" onclick="filterByMonth(1)">January</a></li>
+                                <li><a href="#" onclick="filterByMonth(2)">February</a></li>
+                                <li><a href="#" onclick="filterByMonth(3)">March</a></li>
+                                <li><a href="#" onclick="filterByMonth(4)">April</a></li>
+                                <li><a href="#" onclick="filterByMonth(5)">May</a></li>
+                                <li><a href="#" onclick="filterByMonth(6)">June</a></li>
+                                <li><a href="#" onclick="filterByMonth(7)">July</a></li>
+                                <li><a href="#" onclick="filterByMonth(8)">August</a></li>
+                                <li><a href="#" onclick="filterByMonth(9)">September</a></li>
+                                <li><a href="#" onclick="filterByMonth(10)">October</a></li>
+                                <li><a href="#" onclick="filterByMonth(11)">November</a></li>
+                                <li><a href="#" onclick="filterByMonth(12)">December</a></li>
+                            </ul>
+                        </li>
                         <li><a href="#" onclick="filterLineup('week')">By Week/Sunday</a></li>
                     </ul>
                 </li>
@@ -25,6 +43,7 @@
                 <li><a href="#" onclick="showSection('song-library')">Song Library</a></li>
             </ul>
         </nav>
+
         <main class="content">
             <section id="lineup">
                 <h2>Lineup</h2>
@@ -44,17 +63,21 @@
             </section>
         </main>
     </div>
+
     <script>
         const sheetId = "1Rf7EGqVDLHieTWQC4iqnSox1wEUZtLAqvXm6b5g4tMg";
         const sheetName = "Lineup Songs";
         const apiKey = "AIzaSyA3G6VhZdf_0heYvIQr84u8HCerrrvsFUo";
+
+        let allData = [];
 
         async function fetchSheetData() {
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}!B:E?key=${apiKey}`;
             try {
                 const response = await fetch(url);
                 const data = await response.json();
-                displayLineup(data.values);
+                allData = data.values;
+                displayLineup(allData);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
@@ -67,14 +90,47 @@
                 tableBody.innerHTML = "<tr><td colspan='4'>No data available</td></tr>";
                 return;
             }
-            rows.forEach((row, index) => {
-                if (index === 0) return;
+
+            // Remove header row and sort by date
+            const sortedRows = rows.slice(1).sort((a, b) => new Date(a[0]) - new Date(b[0]));
+
+            sortedRows.forEach(row => {
                 const [date, songLineup, description, youtubeLink] = row;
                 const newRow = `<tr>
                     <td>${date || ""}</td>
                     <td>${songLineup || ""}</td>
                     <td>${description || ""}</td>
-                    <td>${youtubeLink ? `<a href='${youtubeLink}' target='_blank'>Watch</a>` : ""}</td>
+                    <td>${youtubeLink ? `<a href='${youtubeLink}' target='_blank'>Watch/Listen</a>` : ""}</td>
+                </tr>`;
+                tableBody.innerHTML += newRow;
+            });
+        }
+
+        function filterByMonth(month) {
+            const filteredData = allData.filter((row, index) => {
+                if (index === 0) return false; // Skip header
+                const date = new Date(row[0]);
+                return date.getMonth() + 1 === month; // Months are 0-based in JS
+            });
+
+            const tableBody = document.querySelector("#lineupTable tbody");
+            tableBody.innerHTML = "";
+
+            if (filteredData.length === 0) {
+                tableBody.innerHTML = "<tr><td colspan='4'>No data available for this month</td></tr>";
+                return;
+            }
+
+            // Sort filtered data by date
+            filteredData.sort((a, b) => new Date(a[0]) - new Date(b[0]));
+
+            filteredData.forEach(row => {
+                const [date, songLineup, description, youtubeLink] = row;
+                const newRow = `<tr>
+                    <td>${date || ""}</td>
+                    <td>${songLineup || ""}</td>
+                    <td>${description || ""}</td>
+                    <td>${youtubeLink ? `<a href='${youtubeLink}' target='_blank'>Watch/Listen</a>` : ""}</td>
                 </tr>`;
                 tableBody.innerHTML += newRow;
             });
@@ -82,9 +138,14 @@
 
         function filterLineup(type) {
             if (type === "all") {
-                fetchSheetData();
+                displayLineup(allData);
             }
         }
+
+        function toggleSidebar() {
+            document.querySelector(".sidebar").classList.toggle("open");
+        }
+
         document.addEventListener("DOMContentLoaded", fetchSheetData);
     </script>
 </body>
