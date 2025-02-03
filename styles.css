@@ -72,25 +72,6 @@ body {
     }
 }
 
-/* Sidebar Toggle Button */
-.toggle-btn {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    background-color: #00692e;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-    display: none;
-}
-
-@media screen and (max-width: 768px) {
-    .toggle-btn {
-        display: block;
-    }
-}
-
 /* Content Section */
 .content {
     margin-left: 270px;
