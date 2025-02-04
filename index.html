@@ -37,8 +37,8 @@
                         <li><a href="#" onclick="filterLineup('week')">By Week/Sunday</a></li>
                     </ul>
                 </li>
-                <li><a href="#" onclick="showSection('songleaders')">Songleaders</a></li>
-                <li><a href="#" onclick="showSection('musicians')">Musicians</a></li>
+                <!-- <li><a href="#" onclick="showSection('songleaders')">Songleaders</a></li>
+                <li><a href="#" onclick="showSection('musicians')">Musicians</a></li> -->
                 <li><a href="#" onclick="showSection('new-songs')">New Songs Library</a></li>
                 <li><a href="#" onclick="showSection('song-library')">Song Library</a></li>
             </ul>
@@ -59,6 +59,36 @@
                     </thead>
                     <tbody>
                         <!-- Latest data will be inserted here -->
+                    </tbody>
+                </table>
+                
+                <!-- First new table -->
+                <h3 style="margin-left: 5%; color: #00692e;">Carissa - 1st Service</h3>
+                <table id="workersTable1">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Designation</th>
+                            <th>Names</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data for workers table 1 -->
+                    </tbody>
+                </table>
+
+                <!-- Second new table -->
+                <h3 style="margin-left: 5%; color: #00692e;">Bagtas - 2nd Service</h3>
+                <table id="workersTable2">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Designation</th>
+                            <th>Names</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data for workers table 2 -->
                     </tbody>
                 </table>
             </section>
@@ -84,19 +114,34 @@
 
     <script>
         const sheetId = "1Rf7EGqVDLHieTWQC4iqnSox1wEUZtLAqvXm6b5g4tMg";
-        const sheetName = "Lineup Songs";
+        const lineupSheetName = "Lineup Songs";
+        const workersSheetName = "Workers";
         const apiKey = "AIzaSyA3G6VhZdf_0heYvIQr84u8HCerrrvsFUo";
 
-        let allData = [];
+        let allLineupData = [];
+        let allWorkersData = [];
 
         async function fetchSheetData() {
-            const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}!B:E?key=${apiKey}`;
+            const lineupUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${lineupSheetName}!B:E?key=${apiKey}`;
+            const workersUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${workersSheetName}!B:D?key=${apiKey}`;
+
             try {
-                const response = await fetch(url);
-                const data = await response.json();
-                allData = data.values;
-                displayLineup(allData);
-                displayLatestLineup(allData);
+                // Fetch both Lineup and Workers data
+                const [lineupResponse, workersResponse] = await Promise.all([
+                    fetch(lineupUrl),
+                    fetch(workersUrl),
+                ]);
+
+                const lineupData = await lineupResponse.json();
+                const workersData = await workersResponse.json();
+
+                allLineupData = lineupData.values;
+                allWorkersData = workersData.values;
+
+                displayLineup(allLineupData);
+                displayLatestLineup(allLineupData);
+                displayWorkersTable1(allWorkersData);
+                displayWorkersTable2(allWorkersData);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
@@ -126,17 +171,14 @@
 
         function displayLatestLineup(rows) {
             const today = new Date();
-            // Sort the rows by date in ascending order
             const sortedRows = rows.slice(1).sort((a, b) => new Date(a[0]) - new Date(b[0]));
 
-            // Find the row closest to or after today's date
             const latestRowIndex = sortedRows.findIndex(row => new Date(row[0]) >= today);
 
             if (latestRowIndex !== -1) {
                 const tableBody = document.querySelector("#latestLineupTable tbody");
-                tableBody.innerHTML = "";  // Clear any existing rows
+                tableBody.innerHTML = "";
 
-                // Get the next 5 rows after the latest row
                 const rowsToShow = sortedRows.slice(latestRowIndex, latestRowIndex + 6);
 
                 rowsToShow.forEach(row => {
@@ -155,52 +197,50 @@
             }
         }
 
-        function showHome() {
-            document.getElementById('home').style.display = 'block';
-            document.getElementById('lineup').style.display = 'none';
-        }
-
-        function showSection(sectionId) {
-            document.getElementById('home').style.display = 'none';
-            document.getElementById('lineup').style.display = 'block';
-        }
-
-        function filterByMonth(month) {
-            const filteredData = allData.filter((row, index) => {
-                if (index === 0) return false; // Skip header
-                const date = new Date(row[0]);
-                return date.getMonth() + 1 === month; // Months are 0-based in JS
-            });
-
-            const tableBody = document.querySelector("#lineupTable tbody");
+        function displayWorkersTable1(rows) {
+            const tableBody = document.querySelector("#workersTable1 tbody");
             tableBody.innerHTML = "";
-
-            if (filteredData.length === 0) {
-                tableBody.innerHTML = "<tr><td colspan='4'>No data available for this month</td></tr>";
+            if (!rows || rows.length === 0) {
+                tableBody.innerHTML = "<tr><td colspan='3'>No data available</td></tr>";
                 return;
             }
 
-            filteredData.sort((a, b) => new Date(a[0]) - new Date(b[0]));
+            const sortedRows = rows.slice(1).sort((a, b) => new Date(a[0]) - new Date(b[0]));
 
-            filteredData.forEach(row => {
-                const [date, songLineup, description, youtubeLink] = row;
+            sortedRows.forEach(row => {
+                const [date, designation, names] = row;
                 const newRow = `<tr>
                     <td>${date || ""}</td>
-                    <td>${songLineup || ""}</td>
-                    <td>${description || ""}</td>
-                    <td>${youtubeLink ? `<a href='${youtubeLink}' target='_blank'>Watch/Listen</a>` : ""}</td>
+                    <td>${designation || ""}</td>
+                    <td>${names || ""}</td>
                 </tr>`;
                 tableBody.innerHTML += newRow;
             });
         }
 
-        function filterLineup(type) {
-            if (type === "all") {
-                displayLineup(allData);
+        function displayWorkersTable2(rows) {
+            const tableBody = document.querySelector("#workersTable2 tbody");
+            tableBody.innerHTML = "";
+            if (!rows || rows.length === 0) {
+                tableBody.innerHTML = "<tr><td colspan='3'>No data available</td></tr>";
+                return;
             }
+
+            const sortedRows = rows.slice(1).sort((a, b) => new Date(a[0]) - new Date(b[0]));
+
+            sortedRows.forEach(row => {
+                const [date, designation, names] = row;
+                const newRow = `<tr>
+                    <td>${date || ""}</td>
+                    <td>${designation || ""}</td>
+                    <td>${names || ""}</td>
+                </tr>`;
+                tableBody.innerHTML += newRow;
+            });
         }
 
         document.addEventListener("DOMContentLoaded", fetchSheetData);
     </script>
+
 </body>
 </html>
