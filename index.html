@@ -228,46 +228,71 @@
         }
 
         function displayWorkersTable1(rows) {
-            const tableBody = document.querySelector("#workersTable1 tbody");
-            tableBody.innerHTML = "";
-            if (!rows || rows.length === 0) {
-                tableBody.innerHTML = "<tr><td colspan='3'>No data available</td></tr>";
-                return;
-            }
+    const tableBody = document.querySelector("#workersTable1 tbody");
+    tableBody.innerHTML = "";
+    if (!rows || rows.length === 0) {
+        tableBody.innerHTML = "<tr><td colspan='3'>No data available</td></tr>";
+        return;
+    }
 
-            const sortedRows = rows.slice(1).sort((a, b) => new Date(a[0]) - new Date(b[0]));
+    const today = new Date();
+    const sortedRows = rows.slice(1).sort((a, b) => new Date(a[0]) - new Date(b[0]));
 
-            sortedRows.forEach(row => {
-                const [date, designation, names] = row;
-                const newRow = `<tr>
-                    <td>${date || ""}</td>
-                    <td>${designation || ""}</td>
-                    <td>${names || ""}</td>
-                </tr>`;
-                tableBody.innerHTML += newRow;
-            });
-        }
+    // Find the nearest date index
+    let nearestIndex = sortedRows.findIndex(row => new Date(row[0]) >= today);
+    if (nearestIndex === -1) nearestIndex = sortedRows.length - 1; // Use last if no future dates
 
-        function displayWorkersTable2(rows) {
-            const tableBody = document.querySelector("#workersTable2 tbody");
-            tableBody.innerHTML = "";
-            if (!rows || rows.length === 0) {
-                tableBody.innerHTML = "<tr><td colspan='3'>No data available</td></tr>";
-                return;
-            }
+    // Get 12 rows starting from the nearest date
+    const rowsToShow = sortedRows.slice(nearestIndex, nearestIndex + 12);
 
-            const sortedRows = rows.slice(1).sort((a, b) => new Date(a[0]) - new Date(b[0]));
+    if (rowsToShow.length > 0) {
+        rowsToShow.forEach(row => {
+            const [date, designation, names] = row;
+            const newRow = `<tr>
+                <td>${date || ""}</td>
+                <td>${designation || ""}</td>
+                <td>${names || ""}</td>
+            </tr>`;
+            tableBody.innerHTML += newRow;
+        });
+    } else {
+        tableBody.innerHTML = "<tr><td colspan='3'>No upcoming workers found</td></tr>";
+    }
+}
 
-            sortedRows.forEach(row => {
-                const [date, designation, names] = row;
-                const newRow = `<tr>
-                    <td>${date || ""}</td>
-                    <td>${designation || ""}</td>
-                    <td>${names || ""}</td>
-                </tr>`;
-                tableBody.innerHTML += newRow;
-            });
-        }
+function displayWorkersTable2(rows) {
+    const tableBody = document.querySelector("#workersTable2 tbody");
+    tableBody.innerHTML = "";
+    if (!rows || rows.length === 0) {
+        tableBody.innerHTML = "<tr><td colspan='3'>No data available</td></tr>";
+        return;
+    }
+
+    const today = new Date();
+    const sortedRows = rows.slice(1).sort((a, b) => new Date(a[0]) - new Date(b[0]));
+
+    // Find the nearest date index
+    let nearestIndex = sortedRows.findIndex(row => new Date(row[0]) >= today);
+    if (nearestIndex === -1) nearestIndex = sortedRows.length - 1; // Use last if no future dates
+
+    // Get 12 rows starting from the nearest date
+    const rowsToShow = sortedRows.slice(nearestIndex, nearestIndex + 12);
+
+    if (rowsToShow.length > 0) {
+        rowsToShow.forEach(row => {
+            const [date, designation, names] = row;
+            const newRow = `<tr>
+                <td>${date || ""}</td>
+                <td>${designation || ""}</td>
+                <td>${names || ""}</td>
+            </tr>`;
+            tableBody.innerHTML += newRow;
+        });
+    } else {
+        tableBody.innerHTML = "<tr><td colspan='3'>No upcoming workers found</td></tr>";
+    }
+}
+
 
         document.addEventListener("DOMContentLoaded", fetchSheetData);
     </script>

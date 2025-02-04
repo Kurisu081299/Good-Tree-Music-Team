@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Good Tree Church Music Team</title>
-    <link rel="stylesheet" href="../css/styles.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Good Tree Church Music Team</title>
+        <link rel="stylesheet" href="../css/styles.css">
+        
+        <!-- Favicon -->
+        <link rel="icon" type="../image/png" href="../icons/favicon.png">
+    </head>
 <body>
+      <!-- Scroll Up Button -->
+      <button id="scrollUpBtn" title="Go to top">&#8679;</button>
     <div class="container">
         <nav class="navbar">
             <h1>
@@ -16,8 +21,8 @@
                 <li><a href="../index.html" onclick="showHome()">Home</a></li>
                 <li class="dropdown">
                     <a href="../pages/lineup.html">Lineup</a>
-                    <ul class="dropdown-content">
-                        <li><a href="../pages/lineup.html" onclick="filterLineup('all')">All</a></li>
+                    <!-- <ul class="dropdown-content">
+                        <li><a href="pages/lineup.html" onclick="filterLineup('all')">All</a></li>
                         <li class="dropdown-submenu">
                             <a href="#">By Month ▼</a>
                             <ul class="dropdown-content">
@@ -35,17 +40,145 @@
                                 <li><a href="#" onclick="filterByMonth(12)">December</a></li>
                             </ul>
                         </li>
-                        <li><a href="../pages/latest.html" onclick="filterLineup('week')">By Week/Sunday</a></li>
-                    </ul>
+                        <li><a href="pages/latest.html" onclick="filterLineup('week')">By Week/Sunday</a></li>
+                    </ul> -->
                 </li>
                 <li><a href="#" onclick="showSection('new-songs')">New Songs Library</a></li>
                 <li><a href="#" onclick="showSection('song-library')">Song Library</a></li>
             </ul>
         </nav>
     </div>
-    <div class="table-wrapper">
-        <main class="content">
-            <section id="lineup">
+    
+
+<!-- Updated HTML -->
+<main class="content">
+    <div class="lineup-container">
+        <h2 style="text-align: center; font-size: 50px; margin-top: 0px;">Lineups</h2>
+    
+        <div class="lineup-menu">
+            <ul>
+                <li><a href="#latest-lineup-container" onclick="filterLineup('latest')">Latest</a></li>
+                <li><a href="#all-lineup-container">All</a></li>
+                <li class="dropdown">
+                    <a href="#">Month▼</a>
+                    
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="latest-lineup-container" id="latest-lineup-container">
+    <section id="home">
+        <div class="content-wrapper">
+            <div class="table-container">
+                <div class="table-wrapper1">
+                    <h3>Latest Lineup</h3>
+                    <table id="latestLineupTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Song Lineup</th>
+                                <th>Description</th>
+                                <th>Youtube Link</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                
+                <div class="table-wrapper">
+                    <h3>Carissa - 1st Service</h3>
+                    <table id="workersTable1">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Designation</th>
+                                <th>Names</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+    
+                <div class="table-wrapper">
+                    <h3>Bagtas - 2nd Service</h3>
+                    <table id="workersTable2">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Designation</th>
+                                <th>Names</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+    
+            <!-- PDF Viewer on the right side -->
+            <div class="pdf-viewer">
+                <h3 style="color: #00692e;">Chords & Lyrics</h3>
+                <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+                    <iframe src="https://drive.google.com/file/d/10AiSx4-SYi7spuVwUocLXf_B9bUg_ALm/preview" width="100%" height="100%">
+                        Your browser does not support PDFs.
+                    </iframe>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+</div>
+<div class="all-lineup-container" id="all-lineup-container">
+    <h2 style="text-align: center; font-size: 50px; margin-top: 0px;">All Lineups</h2>
+
+    <div class="content-wrapper">
+        <div class="all-table-container">
+            <div class="all-table-wrapper1">
+                <h3>All Lineup</h3>
+                <table id="all-latestLineupTable">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Song Lineup</th>
+                            <th>Description</th>
+                            <th>Youtube Link</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            
+            <div class="table-wrapper">
+                <h3>Carissa - 1st Service</h3>
+                <table id="all-workersTable1">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Designation</th>
+                            <th>Names</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="table-wrapper">
+                <h3>Bagtas - 2nd Service</h3>
+                <table id="all-workersTable2">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Designation</th>
+                            <th>Names</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+</div>
+    
+            <section id="lineup" style="display:none;">
                 <h2>Lineup</h2>
                 <table id="lineupTable">
                     <thead>
@@ -66,22 +199,111 @@
 
     <script>
         const sheetId = "1Rf7EGqVDLHieTWQC4iqnSox1wEUZtLAqvXm6b5g4tMg";
-        const sheetName = "Lineup Songs";
+        const lineupSheetName = "Lineup Songs";
+        const workersSheetName = "Workers";
         const apiKey = "AIzaSyA3G6VhZdf_0heYvIQr84u8HCerrrvsFUo";
 
-        let allData = [];
+        let allLineupData = [];
+        let allWorkersData = [];
 
         async function fetchSheetData() {
-            const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}!B:E?key=${apiKey}`;
+            const lineupUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${lineupSheetName}!B:E?key=${apiKey}`;
+            const workersUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${workersSheetName}!B:D?key=${apiKey}`;
+            const workersUrl2 = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${workersSheetName}!F:H?key=${apiKey}`;
+
+
             try {
-                const response = await fetch(url);
-                const data = await response.json();
-                allData = data.values;
-                displayLineup(allData);
+                const [lineupResponse, workersResponse, workersResponse2] = await Promise.all([
+                    fetch(lineupUrl),
+                    fetch(workersUrl),
+                    fetch(workersUrl2),
+                ]);
+
+                const lineupData = await lineupResponse.json();
+                const workersData = await workersResponse.json();
+                const workersData2= await workersResponse2.json();
+
+                allLineupData = lineupData.values;
+                allWorkersData = workersData.values;
+                allWorkersData2 = workersData2.values;
+
+                displayLineup(allLineupData);
+                displayLatestLineup(allLineupData);
+                displayWorkersTable1(allWorkersData);
+                displayWorkersTable2(allWorkersData2);
+                displayAllTables();
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
         }
+        function displayAllTables() {
+            displayAllLineup(allLineupData);
+            displayAllWorkersTable1(allWorkersData);
+            displayAllWorkersTable2(allWorkersData2);
+        }
+
+        function displayAllLineup(rows) {
+    const tableBody = document.querySelector("#all-latestLineupTable tbody");
+    tableBody.innerHTML = "";
+    
+    if (!rows || rows.length === 0) {
+        tableBody.innerHTML = "<tr><td colspan='4'>No data available</td></tr>";
+        return;
+    }
+
+    rows.slice(1).forEach(row => {  
+        const [date, songLineup, description, youtubeLink] = row;
+        const newRow = `<tr>
+            <td>${date || ""}</td>
+            <td>${songLineup || ""}</td>
+            <td>${description || ""}</td>
+            <td>${youtubeLink ? `<a href='${youtubeLink}' target='_blank'>Watch/Listen</a>` : ""}</td>
+        </tr>`;
+        tableBody.innerHTML += newRow;
+    });
+}
+
+// ✅ Displays all worker data in #all-workersTable1
+function displayAllWorkersTable1(rows) {
+    const tableBody = document.querySelector("#all-workersTable1 tbody");
+    tableBody.innerHTML = "";
+    
+    if (!rows || rows.length === 0) {
+        tableBody.innerHTML = "<tr><td colspan='3'>No data available</td></tr>";
+        return;
+    }
+
+    rows.slice(1).forEach(row => {
+        const [date, designation, names] = row;
+        const newRow = `<tr>
+            <td>${date || ""}</td>
+            <td>${designation || ""}</td>
+            <td>${names || ""}</td>
+        </tr>`;
+        tableBody.innerHTML += newRow;
+    });
+}
+
+// ✅ Displays all worker data in #all-workersTable2
+function displayAllWorkersTable2(rows) {
+    const tableBody = document.querySelector("#all-workersTable2 tbody");
+    tableBody.innerHTML = "";
+    
+    if (!rows || rows.length === 0) {
+        tableBody.innerHTML = "<tr><td colspan='3'>No data available</td></tr>";
+        return;
+    }
+
+    rows.slice(1).forEach(row => {
+        const [date, designation, names] = row;
+        const newRow = `<tr>
+            <td>${date || ""}</td>
+            <td>${designation || ""}</td>
+            <td>${names || ""}</td>
+        </tr>`;
+        tableBody.innerHTML += newRow;
+    });
+}
 
         function displayLineup(rows) {
             const tableBody = document.querySelector("#lineupTable tbody");
@@ -91,7 +313,6 @@
                 return;
             }
 
-            // Remove header row and sort by date
             const sortedRows = rows.slice(1).sort((a, b) => new Date(a[0]) - new Date(b[0]));
 
             sortedRows.forEach(row => {
@@ -106,48 +327,154 @@
             });
         }
 
-        function filterByMonth(month) {
-            const sortedRows = allData.slice(1).sort((a, b) => new Date(a[0]) - new Date(b[0])); // Sort the data by date
+        function displayLatestLineup(rows) {
+            const today = new Date();
+            const sortedRows = rows.slice(1).sort((a, b) => new Date(a[0]) - new Date(b[0]));
 
-            // Filter the rows by the selected month
-            const filteredRows = sortedRows.filter(row => {
-                const date = new Date(row[0]);
-                return date.getMonth() + 1 === month; // Months are 0-based in JavaScript
-            });
+            const latestRowIndex = sortedRows.findIndex(row => new Date(row[0]) >= today);
 
-            // Display all the rows for the selected month
-            const tableBody = document.querySelector("#lineupTable tbody");
-            tableBody.innerHTML = "";
+            if (latestRowIndex !== -1) {
+                const tableBody = document.querySelector("#latestLineupTable tbody");
+                tableBody.innerHTML = "";
 
-            if (filteredRows.length === 0) {
-                tableBody.innerHTML = "<tr><td colspan='4'>No data available for this month</td></tr>";
-                return;
-            }
+                const rowsToShow = sortedRows.slice(latestRowIndex, latestRowIndex + 6);
 
-            // Add the filtered rows for the selected month
-            filteredRows.forEach(row => {
-                const [date, songLineup, description, youtubeLink] = row;
-                const newRow = `<tr>
-                    <td>${date || ""}</td>
-                    <td>${songLineup || ""}</td>
-                    <td>${description || ""}</td>
-                    <td>${youtubeLink ? `<a href='${youtubeLink}' target='_blank'>Watch/Listen</a>` : ""}</td>
-                </tr>`;
-                tableBody.innerHTML += newRow;
-            });
-        }
-
-        function filterLineup(type) {
-            if (type === "all") {
-                displayLineup(allData);
+                rowsToShow.forEach(row => {
+                    const [date, songLineup, description, youtubeLink] = row;
+                    const newRow = `<tr>
+                        <td>${date || ""}</td>
+                        <td>${songLineup || ""}</td>
+                        <td>${description || ""}</td>
+                        <td>${youtubeLink ? `<a href='${youtubeLink}' target='_blank'>Watch/Listen</a>` : ""}</td>
+                    </tr>`;
+                    tableBody.innerHTML += newRow;
+                });
+            } else {
+                const tableBody = document.querySelector("#latestLineupTable tbody");
+                tableBody.innerHTML = "<tr><td colspan='4'>No upcoming lineup found</td></tr>";
             }
         }
 
-        function toggleSidebar() {
-            document.querySelector(".sidebar").classList.toggle("open");
-        }
+        function displayWorkersTable1(rows) {
+    const tableBody = document.querySelector("#workersTable1 tbody");
+    tableBody.innerHTML = "";
+    if (!rows || rows.length === 0) {
+        tableBody.innerHTML = "<tr><td colspan='3'>No data available</td></tr>";
+        return;
+    }
+
+    const today = new Date();
+    const sortedRows = rows.slice(1).sort((a, b) => new Date(a[0]) - new Date(b[0]));
+
+    // Find the nearest date index
+    let nearestIndex = sortedRows.findIndex(row => new Date(row[0]) >= today);
+    if (nearestIndex === -1) nearestIndex = sortedRows.length - 1; // Use last if no future dates
+
+    // Get 12 rows starting from the nearest date
+    const rowsToShow = sortedRows.slice(nearestIndex, nearestIndex + 12);
+
+    if (rowsToShow.length > 0) {
+        rowsToShow.forEach(row => {
+            const [date, designation, names] = row;
+            const newRow = `<tr>
+                <td>${date || ""}</td>
+                <td>${designation || ""}</td>
+                <td>${names || ""}</td>
+            </tr>`;
+            tableBody.innerHTML += newRow;
+        });
+    } else {
+        tableBody.innerHTML = "<tr><td colspan='3'>No upcoming workers found</td></tr>";
+    }
+}
+
+function displayWorkersTable2(rows) {
+    const tableBody = document.querySelector("#workersTable2 tbody");
+    tableBody.innerHTML = "";
+    if (!rows || rows.length === 0) {
+        tableBody.innerHTML = "<tr><td colspan='3'>No data available</td></tr>";
+        return;
+    }
+
+    const today = new Date();
+    const sortedRows = rows.slice(1).sort((a, b) => new Date(a[0]) - new Date(b[0]));
+
+    // Find the nearest date index
+    let nearestIndex = sortedRows.findIndex(row => new Date(row[0]) >= today);
+    if (nearestIndex === -1) nearestIndex = sortedRows.length - 1; // Use last if no future dates
+
+    // Get 12 rows starting from the nearest date
+    const rowsToShow = sortedRows.slice(nearestIndex, nearestIndex + 12);
+
+    if (rowsToShow.length > 0) {
+        rowsToShow.forEach(row => {
+            const [date, designation, names] = row;
+            const newRow = `<tr>
+                <td>${date || ""}</td>
+                <td>${designation || ""}</td>
+                <td>${names || ""}</td>
+            </tr>`;
+            tableBody.innerHTML += newRow;
+        });
+    } else {
+        tableBody.innerHTML = "<tr><td colspan='3'>No upcoming workers found</td></tr>";
+    }
+}
+
 
         document.addEventListener("DOMContentLoaded", fetchSheetData);
+
+// Get the scroll up button
+const scrollUpBtn = document.getElementById("scrollUpBtn");
+
+// Show the button when the user scrolls down 100px from the top
+window.onscroll = function () {
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        scrollUpBtn.style.display = "block";
+    } else {
+        scrollUpBtn.style.display = "none";
+    }
+
+    // Check if the user has reached the bottom of the page
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        // Add class to change styles when at the bottom
+        scrollUpBtn.classList.add("atBottom");
+    } else {
+        // Remove class when not at the bottom
+        scrollUpBtn.classList.remove("atBottom");
+    }
+};
+
+// When the button is clicked, scroll to the top
+scrollUpBtn.onclick = function () {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"  // Smooth scroll effect
+    });
+};
+
+
+
+
     </script>
+
+<footer class="footer">
+    <div class="footer-container">
+        <ul class="footer-links">
+            <li><a href="#">Feedback & Suggestion Box</a></li>
+            <li><a href="#">Worship Leader’s Corner</a></li>
+            <li><a href="#">FAQ Section</a></li>
+            <li><a href="#">Mission & Vision</a></li>
+            <li><a href="#">Resource Library</a></li>
+            <li><a href="#">Technical Tutorials</a></li>
+            <li><a href="#">Testimonials and Stories</a></li>
+            <li><a href="#">Worship Planning</a></li>
+            <li><a href="#">Contact Information</a></li>
+        </ul>
+        <p class="copyright">Copyright &copy; 2025 Good Tree Church. All rights reserved.</p>
+    </div>
+</footer>
+
+
 </body>
 </html>
