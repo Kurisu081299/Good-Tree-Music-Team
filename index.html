@@ -37,8 +37,6 @@
                         <li><a href="pages/latest.html" onclick="filterLineup('week')">By Week/Sunday</a></li>
                     </ul>
                 </li>
-                <!-- <li><a href="#" onclick="showSection('songleaders')">Songleaders</a></li>
-                <li><a href="#" onclick="showSection('musicians')">Musicians</a></li> -->
                 <li><a href="#" onclick="showSection('new-songs')">New Songs Library</a></li>
                 <li><a href="#" onclick="showSection('song-library')">Song Library</a></li>
             </ul>
@@ -62,7 +60,6 @@
                     </tbody>
                 </table>
                 
-                <!-- First new table -->
                 <h3 style="margin-left: 5%; color: #00692e;">Carissa - 1st Service</h3>
                 <table id="workersTable1">
                     <thead>
@@ -77,7 +74,6 @@
                     </tbody>
                 </table>
 
-                <!-- Second new table -->
                 <h3 style="margin-left: 5%; color: #00692e;">Bagtas - 2nd Service</h3>
                 <table id="workersTable2">
                     <thead>
@@ -91,7 +87,17 @@
                         <!-- Data for workers table 2 -->
                     </tbody>
                 </table>
-            </section>
+
+                <!-- PDF Viewer below the tables -->
+<h3 style="margin-left: 5%; color: #00692e;">PDF Viewer</h3>
+
+<!-- Centering the iframe -->
+<div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+    <iframe src="https://drive.google.com/file/d/1yOkAg9VswdvAWU5puj-Xq97uj-N7_l6y/preview" width="90%" height="600px">
+        Your browser does not support PDFs.
+    </iframe>
+</div>
+
             
             <section id="lineup" style="display:none;">
                 <h2>Lineup</h2>
@@ -124,24 +130,28 @@
         async function fetchSheetData() {
             const lineupUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${lineupSheetName}!B:E?key=${apiKey}`;
             const workersUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${workersSheetName}!B:D?key=${apiKey}`;
+            const workersUrl2 = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${workersSheetName}!F:H?key=${apiKey}`;
+
 
             try {
-                // Fetch both Lineup and Workers data
-                const [lineupResponse, workersResponse] = await Promise.all([
+                const [lineupResponse, workersResponse, workersResponse2] = await Promise.all([
                     fetch(lineupUrl),
                     fetch(workersUrl),
+                    fetch(workersUrl2),
                 ]);
 
                 const lineupData = await lineupResponse.json();
                 const workersData = await workersResponse.json();
+                const workersData2= await workersResponse2.json();
 
                 allLineupData = lineupData.values;
                 allWorkersData = workersData.values;
+                allWorkersData2 = workersData2.values;
 
                 displayLineup(allLineupData);
                 displayLatestLineup(allLineupData);
                 displayWorkersTable1(allWorkersData);
-                displayWorkersTable2(allWorkersData);
+                displayWorkersTable2(allWorkersData2);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
