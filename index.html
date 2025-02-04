@@ -51,69 +51,75 @@
 <!-- Updated HTML -->
 <main class="content">
     <section id="home">
-        <h2 style="text-align: center; font-size: 50px; margin-top: 50p;">Welcome to the Good Tree Church Music Team!</h2>
+        <div class="lineup-container">
+            <h2 style="text-align: center; font-size: 50px;">Good Tree Church Worship Ministry </h2>
+        </div>
         
-    
-        <div class="content-wrapper">
-            
+        <div class="latest-lineup-container" id="latest-lineup-container">
+        <section id="home">
+            <div class="content-wrapper">
+                <div class="table-container">
+                    <div class="table-wrapper1">
+                        <h3>Latest Lineup</h3>
+                        <table id="latestLineupTable">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Song Lineup</th>
+                                    <th>Description</th>
+                                    <th>Youtube Link</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="table-wrapper">
+                        <h3>Carissa - 1st Service</h3>
+                        <table id="workersTable1">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Designation</th>
+                                    <th>Names</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
         
-            <div class="table-container">
-                <div class="table-wrapper1">
-                    <h3>Latest Lineup</h3>
-                    <table id="latestLineupTable">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Song Lineup</th>
-                                <th>Description</th>
-                                <th>Youtube Link</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+                    <div class="table-wrapper">
+                        <h3>Bagtas - 2nd Service</h3>
+                        <table id="workersTable2">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Designation</th>
+                                    <th>Names</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+        
+                <!-- PDF Viewer on the right side -->
+                <div class="pdf-viewer">
+                    <h3 style="color: #00692e;">Chords & Lyrics</h3>
+                    <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+                        <iframe id="pdfViewer" width="100%" height="100%">
+                            Your browser does not support PDFs.
+                        </iframe>
+                        
+                        <script src="js/pdfConfig.js"></script>
+                        
+                    </div>
                 </div>
                 
-                <div class="table-wrapper">
-                    <h3>Carissa - 1st Service</h3>
-                    <table id="workersTable1">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Designation</th>
-                                <th>Names</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-    
-                <div class="table-wrapper">
-                    <h3>Bagtas - 2nd Service</h3>
-                    <table id="workersTable2">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Designation</th>
-                                <th>Names</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
             </div>
+        </section>
+    </div>
     
-            <!-- PDF Viewer on the right side -->
-            <div class="pdf-viewer">
-                <h3 style="color: #00692e;">Chords & Lyrics</h3>
-                <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
-                    <iframe src="https://drive.google.com/file/d/10AiSx4-SYi7spuVwUocLXf_B9bUg_ALm/preview" width="100%" height="100%">
-                        Your browser does not support PDFs.
-                    </iframe>
-                </div>
-            </div>
-            
-        </div>
-    </section>
     
     
     
