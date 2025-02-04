@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Good Tree Church Music Team</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Good Tree Church Music Team</title>
+        <link rel="stylesheet" href="css/styles.css">
+        
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="icons/favicon.png">
+    </head>
 <body>
     <div class="container">
-
-        <nav class="sidebar">
-            <h1>Good Tree Music Team</h1>
+        <nav class="navbar">
+            <h1>
+                <a href="index.html"><img src="icons/logo.png" alt="Good Tree Music Team Logo" style="height: 75px; margin-left: 35px;"></a>
+            </h1>
             <ul>
                 <li><a href="index.html" onclick="showHome()">Home</a></li>
                 <li class="dropdown">
-                    <a href="pages/lineup.html">Lineup ▼</a>
-                    <ul class="dropdown-content">
+                    <a href="pages/lineup.html">Lineup</a>
+                    <!-- <ul class="dropdown-content">
                         <li><a href="pages/lineup.html" onclick="filterLineup('all')">All</a></li>
-                        <li>
+                        <li class="dropdown-submenu">
                             <a href="#">By Month ▼</a>
                             <ul class="dropdown-content">
                                 <li><a href="#" onclick="filterByMonth(1)">January</a></li>
@@ -35,68 +39,84 @@
                             </ul>
                         </li>
                         <li><a href="pages/latest.html" onclick="filterLineup('week')">By Week/Sunday</a></li>
-                    </ul>
+                    </ul> -->
                 </li>
                 <li><a href="#" onclick="showSection('new-songs')">New Songs Library</a></li>
                 <li><a href="#" onclick="showSection('song-library')">Song Library</a></li>
             </ul>
         </nav>
+    </div>
+    
 
-        <main class="content">
-            <section id="home">
-                <h2 style="text-align: center;">Welcome to the Good Tree Church Music Team!</h2>
-                <h3 style="margin-left: 5%; color: #00692e;">Latest Lineup</h3>
-                <table id="latestLineupTable">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Song Lineup</th>
-                            <th>Description</th>
-                            <th>Youtube Link</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Latest data will be inserted here -->
-                    </tbody>
-                </table>
+<!-- Updated HTML -->
+<main class="content">
+    <section id="home">
+        <h2 style="text-align: center; font-size: 50px; margin-top: 50p;">Welcome to the Good Tree Church Music Team!</h2>
+        
+    
+        <div class="content-wrapper">
+            
+        
+            <div class="table-container">
+                <div class="table-wrapper1">
+                    <h3>Latest Lineup</h3>
+                    <table id="latestLineupTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Song Lineup</th>
+                                <th>Description</th>
+                                <th>Youtube Link</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
                 
-                <h3 style="margin-left: 5%; color: #00692e;">Carissa - 1st Service</h3>
-                <table id="workersTable1">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Designation</th>
-                            <th>Names</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Data for workers table 1 -->
-                    </tbody>
-                </table>
-
-                <h3 style="margin-left: 5%; color: #00692e;">Bagtas - 2nd Service</h3>
-                <table id="workersTable2">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Designation</th>
-                            <th>Names</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Data for workers table 2 -->
-                    </tbody>
-                </table>
-
-                <!-- PDF Viewer below the tables -->
-<h3 style="margin-left: 5%; color: #00692e;">Chords & Lyrics</h3>
-
-<!-- Centering the iframe -->
-<div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
-    <iframe src="https://drive.google.com/file/d/10AiSx4-SYi7spuVwUocLXf_B9bUg_ALm/preview" width="90%" height="600px">
-        Your browser does not support PDFs.
-    </iframe>
-</div>
+                <div class="table-wrapper">
+                    <h3>Carissa - 1st Service</h3>
+                    <table id="workersTable1">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Designation</th>
+                                <th>Names</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+    
+                <div class="table-wrapper">
+                    <h3>Bagtas - 2nd Service</h3>
+                    <table id="workersTable2">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Designation</th>
+                                <th>Names</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+    
+            <!-- PDF Viewer on the right side -->
+            <div class="pdf-viewer">
+                <h3 style="color: #00692e;">Chords & Lyrics</h3>
+                <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+                    <iframe src="https://drive.google.com/file/d/10AiSx4-SYi7spuVwUocLXf_B9bUg_ALm/preview" width="100%" height="100%">
+                        Your browser does not support PDFs.
+                    </iframe>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+    
+    
 
             
             <section id="lineup" style="display:none;">
@@ -251,6 +271,24 @@
 
         document.addEventListener("DOMContentLoaded", fetchSheetData);
     </script>
+
+<footer class="footer">
+    <div class="footer-container">
+        <ul class="footer-links">
+            <li><a href="#">Feedback & Suggestion Box</a></li>
+            <li><a href="#">Worship Leader’s Corner</a></li>
+            <li><a href="#">FAQ Section</a></li>
+            <li><a href="#">Mission & Vision</a></li>
+            <li><a href="#">Resource Library</a></li>
+            <li><a href="#">Technical Tutorials</a></li>
+            <li><a href="#">Testimonials and Stories</a></li>
+            <li><a href="#">Worship Planning</a></li>
+            <li><a href="#">Contact Information</a></li>
+        </ul>
+        <p class="copyright">Copyright &copy; 2025 Good Tree Church. All rights reserved.</p>
+    </div>
+</footer>
+
 
 </body>
 </html>

@@ -8,16 +8,17 @@
 </head>
 <body>
     <div class="container">
-
-        <nav class="sidebar">
-            <h1>Good Tree Music Team</h1>
+        <nav class="navbar">
+            <h1>
+                <a href="../index.html"><img src="../icons/logo.png" alt="Good Tree Music Team Logo" style="height: 75px; margin-left: 35px;"></a>
+            </h1>
             <ul>
                 <li><a href="../index.html" onclick="showHome()">Home</a></li>
                 <li class="dropdown">
-                    <a href="lineup.html">Lineup ▼</a>
+                    <a href="../pages/lineup.html">Lineup</a>
                     <ul class="dropdown-content">
-                        <li><a href="lineup.html" onclick="filterLineup('all')">All</a></li>
-                        <li>
+                        <li><a href="../pages/lineup.html" onclick="filterLineup('all')">All</a></li>
+                        <li class="dropdown-submenu">
                             <a href="#">By Month ▼</a>
                             <ul class="dropdown-content">
                                 <li><a href="#" onclick="filterByMonth(1)">January</a></li>
@@ -34,17 +35,17 @@
                                 <li><a href="#" onclick="filterByMonth(12)">December</a></li>
                             </ul>
                         </li>
-                        <li><a href="latest.html" onclick="filterLineup('week')">By Week/Sunday</a></li>
+                        <li><a href="../pages/latest.html" onclick="filterLineup('week')">By Week/Sunday</a></li>
                     </ul>
                 </li>
-                <!-- <li><a href="#" onclick="showSection('songleaders')">Songleaders</a></li>
-                <li><a href="#" onclick="showSection('musicians')">Musicians</a></li> -->
                 <li><a href="#" onclick="showSection('new-songs')">New Songs Library</a></li>
                 <li><a href="#" onclick="showSection('song-library')">Song Library</a></li>
             </ul>
         </nav>
+    </div>
 
         <main class="content">
+            <div class="table-wrapper"></div>
             <section id="home">
                 <h2 style="text-align: center;">This Week's Lineup</h2>
                 <h3 style="margin-left: 5%; color: #00692e;">Latest Lineup</h3>
@@ -63,6 +64,7 @@
                 </table>
             </section>
             
+            
             <section id="lineup" style="display:none;">
                 <h2>Lineup</h2>
                 <table id="lineupTable">
@@ -79,6 +81,7 @@
                     </tbody>
                 </table>
             </section>
+            </div>
         </main>
     </div>
 
