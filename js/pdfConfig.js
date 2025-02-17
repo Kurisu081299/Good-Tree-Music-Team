@@ -1,4 +1,4 @@
-const pdfSrc = "https://drive.google.com/file/d/106ov9dtMqM_YNL2BNbtHy4NDsRHgXhBL/preview";
+const pdfSrc = "https://drive.google.com/file/d/1-bgsoKSL4mSXYojx5OxPDG16B-Dc5SuX/preview";
 
 document.addEventListener("DOMContentLoaded", function () {
     const iframe = document.getElementById("pdfViewer");
