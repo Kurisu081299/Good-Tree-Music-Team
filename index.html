@@ -145,12 +145,13 @@
     </div>
 
     <script>
- const sheetId = "1Rf7EGqVDLHieTWQC4iqnSox1wEUZtLAqvXm6b5g4tMg";
+    const sheetId = "1Rf7EGqVDLHieTWQC4iqnSox1wEUZtLAqvXm6b5g4tMg";
     const lineupSheetName = "Lineup Songs";
     const workersSheetName = "Workers";
     const viewCountSheet = "WebViewCount"; // View count sheet
     const apiKey = "AIzaSyA3G6VhZdf_0heYvIQr84u8HCerrrvsFUo";
     const viewCountRange = "WebViewCount!A2"; // View count cell
+    const viewCountUrl = "https://script.google.com/macros/s/AKfycbz_0tJBUVBoVsHudRaQzAKC4gLWnENiXti96mipLsXuPiBE06xt7cenCd_0l6O8R8DcYw/exec";
 
         let allLineupData = [];
         let allWorkersData = [];
@@ -187,23 +188,19 @@
 
         async function updateViewCount() {
         try {
-            // Step 1: Get the current view count from Google Sheets
-            let response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${viewCountRange}?key=${apiKey}`);
-            let data = await response.json();
-
-            // Step 2: Parse the count, default to 0 if empty
-            let currentCount = data.values ? parseInt(data.values[0][0]) || 0 : 0;
-            let newCount = currentCount + 1;
-
-            // Step 3: Update the new view count in Google Sheets
-            await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${viewCountRange}?valueInputOption=RAW&key=${apiKey}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ values: [[newCount]] })
+            let response = await fetch(viewCountUrl, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
             });
 
-            // Step 4: Display the updated count
-            document.getElementById("viewCountDisplay").textContent = "View Count: " + newCount;
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+
+            let data = await response.json();
+            document.getElementById("viewCountDisplay").textContent = "View Count: " + data.viewCount;
         } catch (error) {
             console.error("Error updating view count:", error);
             document.getElementById("viewCountDisplay").textContent = "View Count: Error!";
