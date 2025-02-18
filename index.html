@@ -145,10 +145,12 @@
     </div>
 
     <script>
-        const sheetId = "1Rf7EGqVDLHieTWQC4iqnSox1wEUZtLAqvXm6b5g4tMg";
-        const lineupSheetName = "Lineup Songs";
-        const workersSheetName = "Workers";
-        const apiKey = "AIzaSyA3G6VhZdf_0heYvIQr84u8HCerrrvsFUo";
+ const sheetId = "1Rf7EGqVDLHieTWQC4iqnSox1wEUZtLAqvXm6b5g4tMg";
+    const lineupSheetName = "Lineup Songs";
+    const workersSheetName = "Workers";
+    const viewCountSheet = "WebViewCount"; // View count sheet
+    const apiKey = "AIzaSyA3G6VhZdf_0heYvIQr84u8HCerrrvsFUo";
+    const viewCountRange = "WebViewCount!A2"; // View count cell
 
         let allLineupData = [];
         let allWorkersData = [];
@@ -182,6 +184,37 @@
                 console.error("Error fetching data:", error);
             }
         }
+
+        async function updateViewCount() {
+        const lastVisit = localStorage.getItem("lastViewCountUpdate");
+        const currentTime = new Date().getTime();
+        const oneDay = 24 * 60 * 60 * 1000;
+
+        if (lastVisit && currentTime - parseInt(lastVisit) < oneDay) {
+            console.log("View count update skipped (already updated within 24 hours).");
+            return;
+        }
+
+        try {
+            let response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${viewCountRange}?key=${apiKey}`);
+            let data = await response.json();
+
+            let currentCount = data.values ? parseInt(data.values[0][0]) || 0 : 0;
+            let newCount = currentCount + 1;
+
+            await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${viewCountRange}?valueInputOption=RAW&key=${apiKey}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ values: [[newCount]] })
+            });
+
+            document.getElementById("viewCountDisplay").textContent = "View Count: " + newCount;
+            localStorage.setItem("lastViewCountUpdate", currentTime);
+        } catch (error) {
+            console.error("Error updating view count:", error);
+            document.getElementById("viewCountDisplay").textContent = "View Count: Error!";
+        }
+    }
 
         function displayLineup(rows) {
             const tableBody = document.querySelector("#lineupTable tbody");
@@ -300,7 +333,10 @@ function displayWorkersTable2(rows) {
 }
 
 
-        document.addEventListener("DOMContentLoaded", fetchSheetData);
+document.addEventListener("DOMContentLoaded", () => {
+        fetchSheetData();
+        updateViewCount();
+    });
     </script>
 
 <footer class="footer">
@@ -317,9 +353,9 @@ function displayWorkersTable2(rows) {
             <li><a href="#">Contact Information</a></li>
         </ul>
         <p class="copyright">Copyright &copy; 2025 Good Tree Church. All rights reserved.</p>
+        
     </div>
 </footer>
-
-
+<p class="copyright" id="viewCountDisplay">View Count: Loading...</p>
 </body>
 </html>
